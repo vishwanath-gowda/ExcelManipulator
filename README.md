@@ -7,7 +7,7 @@ As of now,
 
 ExcelManipulator Object's 
 
-ArraList<Rows> readAllRows(String sheetName,String excelPath);  will return an arrayList of Rows object, which in turn contains ArrayList of fields of one individual row.
+ArraList\<Rows\> readAllRows(String sheetName,String excelPath);  will return an arrayList of Rows object, which in turn contains ArrayList of fields of one individual row.
 
 
 boolean writeCell(String sheetName,String excelPath, int rowNo, int fieldNo,boolean createonNonExistence) function will write a particular cell in excel file and return tru on success else false.
