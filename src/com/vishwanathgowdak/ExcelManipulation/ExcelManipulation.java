@@ -2,6 +2,7 @@ package com.vishwanathgowdak.ExcelManipulation;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class ExcelManipulation implements ExcelManipulationDAO{
 
 	@Override
 	public int writeRow(String sheetName, String excelPath,ArrayList<String> values)throws IOException {
-		
+
 		return 0;
 	}
 
@@ -99,6 +100,35 @@ public class ExcelManipulation implements ExcelManipulationDAO{
 		}
 
 		return true;
+	}
+
+	@Override
+	public ArrayList<Integer> getRowNo(String sheetName, String excelPath, int fieldNo,String value) throws IOException {
+
+		XSSFWorkbook wb=null;
+		XSSFSheet s=null;
+		ArrayList<Integer> temp=new ArrayList<Integer>();
+		File excel=new File(excelPath);
+		if(!excel.exists()){
+			throw new FileNotFoundException();
+		}
+		FileInputStream file = new FileInputStream(excel);
+		try{
+			wb = new XSSFWorkbook(file);
+			s = workbook.getSheet(sheetName);
+			Iterator<Row> rowI = s.iterator();
+			while(rowI.hasNext()){
+				Row row=rowI.next();
+				if(row.getCell(fieldNo).getStringCellValue()==value)
+					temp.add(row.getRowNum());
+			}
+			return temp;
+		}catch(Exception e){
+			throw e;
+		}finally{
+			wb.close();
+		}
+
 	}
 
 }
